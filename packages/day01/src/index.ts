@@ -8,46 +8,72 @@ const filename = process.env.FILENAME as string;
 
 const lists = readFile(filename);
 
-const regex = /(\d+)\s+(\d+)/;
+const regex = /([LR])(\d+)/;
 
-const leftList: Array<number> = [];
-const rightList: Array<number> = [];
-
-lists.forEach((line) => {
-  const match = regex.exec(line) as RegExpExecArray;
-  leftList.push(parseInt(match[1], 10));
-  rightList.push(parseInt(match[2], 10));
-});
-
-if (leftList.length !== rightList.length) {
-  throw new Error('array length mismatch');
+const overflow = (result: number, modulo: number): number => {
+  if (result >= 0) {
+    return result;
+  }
+  const calc = modulo - Math.abs(result % modulo);
+  return calc === 100 ? 0 : calc;
 }
 
-leftList.sort();
-rightList.sort();
+interface Operations {
+  [index: string]: (curr: number, x: number) => number;
+}
 
-const distances: Array< number> = [];
+export const operations: Operations = {
+  "L": (curr: number, distance: number): number => overflow(curr - distance, 100),
+  "R": (curr: number, distance: number): number => (curr + distance) % 100,
+}
 
-const rightListCount: { [num: number]: number } = {};
+export const findZero = (operator: string, distance: number, currentPosition: number) : number => {
+  let password = 0;
+  let remainder = distance;
+  let curr = currentPosition;
+  let f = sum;
+  if (operator === "L") {
+    f = (x: number, y: number): number => x-y;
+  }
 
-rightList.forEach((num) => {
-  if (!Object.prototype.hasOwnProperty.call(rightListCount, num)) {
-    rightListCount[num] = 1;
-  } else {
-    rightListCount[num] = rightListCount[num] + 1;
+  while (remainder > 0) {
+    // console.log(curr)
+    curr = f(curr, 1);
+    if (curr < 0) {
+      curr = 99;
+    }
+    if (curr > 99) {
+      curr = 0;
+    }
+    if (curr === 0) {
+      password++;
+    }
+    remainder--;
+  }
+  return password;
+}
+
+let currentPosition = 50;
+let passwordPartA = 0;
+let passwordPartB = 0;
+
+lists.forEach((line) => {
+  const match = regex.exec(line);
+  if (match === null) {
+    console.log("match is null")
+    process.exit(1)
+  }
+  const operator = match[1] as string;
+  const distance = match && parseInt(match[2], 10);
+
+  // console.log(operator, currentPosition, distance, operations[operator](currentPosition, distance));
+  passwordPartB += findZero(operator, distance, currentPosition)
+  currentPosition = operations[operator](currentPosition, distance);
+  if (currentPosition === 0) {
+    passwordPartA++;
   }
 });
-const similarityScores: Array<number> = [];
 
-leftList.forEach((num, i) => {
-  distances.push(Math.max(num, rightList[i]) - Math.min(num, rightList[i]));
-  const found = Object.prototype.hasOwnProperty.call(rightListCount, num);
-  const count = rightListCount[num];
-  similarityScores.push(found
-    ? num * count
-    : 0);
-});
+console.log(`Part 1: ${passwordPartA}`);
 
-console.log(`Part 1: ${distances.reduce(sum)}`);
-
-console.log(`Part 2: ${similarityScores.filter((a) => a !== 0).reduce(sum)}`);
+console.log(`Part 2: ${passwordPartB}`);
