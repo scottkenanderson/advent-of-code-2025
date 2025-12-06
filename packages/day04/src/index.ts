@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import { readFile, max, sum, Grid, Point } from '@aoc/common';
+import { readFile, Grid, Point } from '@aoc/common';
 
 dotenv.config();
 
@@ -10,12 +10,12 @@ const lists = readFile(filename);
 
 const gridData: string[][] = [];
 lists.forEach((line) => {
-  gridData.push(line.split(''))
+  gridData.push(line.split(''));
 });
 
-const isRoll = (s: string) : boolean => s === '@';
+const isRoll = (s: string): boolean => s === '@';
 
-const part1 = (grid: Grid<string>) : number => {
+const part1 = (grid: Grid<string>): number => {
   let accessibleRolls = 0;
   for (let y = 0; y < grid.rows(); y++) {
     for (let x = 0; x < grid.columns(); x++) {
@@ -30,10 +30,10 @@ const part1 = (grid: Grid<string>) : number => {
     }
   }
   return accessibleRolls;
-}
+};
 
 
-const part2 = (grid: Grid<string>) : number => {
+const part2 = (grid: Grid<string>): number => {
   let accessibleRolls = 0;
   for (let y = 0; y < grid.rows(); y++) {
     for (let x = 0; x < grid.columns(); x++) {
@@ -43,13 +43,13 @@ const part2 = (grid: Grid<string>) : number => {
       }
       const rolls = grid.getNeighbours(new Point(x, y)).filter(isRoll).length;
       if (rolls < 4) {
-        grid.set(point, '.')
+        grid.set(point, '.');
         accessibleRolls++;
       }
     }
   }
   return accessibleRolls;
-}
+};
 
 const part2Grid = new Grid(gridData, '');
 let part2Rolls = 0;
@@ -61,9 +61,9 @@ while (temp !== part2Rolls) {
 }
 
 
-console.log(`Part 1: ${part1(new Grid(gridData))}`)
+console.log(`Part 1: ${part1(new Grid(gridData))}`);
 
 // console.log(part2Grid.toString());
 
-console.log(`Part 2: ${part2Rolls}`)
+console.log(`Part 2: ${part2Rolls}`);
 // console.log(part2Grid.toString());

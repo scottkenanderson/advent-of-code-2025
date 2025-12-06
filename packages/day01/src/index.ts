@@ -15,25 +15,27 @@ const overflow = (result: number, modulo: number): number => {
     return result;
   }
   const calc = modulo - Math.abs(result % modulo);
-  return calc === 100 ? 0 : calc;
-}
+  return calc === 100
+    ? 0
+    : calc;
+};
 
 interface Operations {
   [index: string]: (curr: number, x: number) => number;
 }
 
 export const operations: Operations = {
-  "L": (curr: number, distance: number): number => overflow(curr - distance, 100),
-  "R": (curr: number, distance: number): number => (curr + distance) % 100,
-}
+  L: (curr: number, distance: number): number => overflow(curr - distance, 100),
+  R: (curr: number, distance: number): number => (curr + distance) % 100,
+};
 
-export const findZero = (operator: string, distance: number, currentPosition: number) : number => {
+export const findZero = (operator: string, distance: number, currentPosition: number): number => {
   let password = 0;
   let remainder = distance;
   let curr = currentPosition;
   let f = sum;
-  if (operator === "L") {
-    f = (x: number, y: number): number => x-y;
+  if (operator === 'L') {
+    f = (x: number, y: number): number => x - y;
   }
 
   while (remainder > 0) {
@@ -51,7 +53,7 @@ export const findZero = (operator: string, distance: number, currentPosition: nu
     remainder--;
   }
   return password;
-}
+};
 
 let currentPosition = 50;
 let passwordPartA = 0;
@@ -60,14 +62,14 @@ let passwordPartB = 0;
 lists.forEach((line) => {
   const match = regex.exec(line);
   if (match === null) {
-    console.log("match is null")
-    process.exit(1)
+    console.log('match is null');
+    process.exit(1);
   }
   const operator = match[1] as string;
   const distance = match && parseInt(match[2], 10);
 
   // console.log(operator, currentPosition, distance, operations[operator](currentPosition, distance));
-  passwordPartB += findZero(operator, distance, currentPosition)
+  passwordPartB += findZero(operator, distance, currentPosition);
   currentPosition = operations[operator](currentPosition, distance);
   if (currentPosition === 0) {
     passwordPartA++;

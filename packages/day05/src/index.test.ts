@@ -10,3 +10,7 @@
 //   expect(findBatteryJoltage('12345678901234'.split(''), 12)).toBeDefined();
 //   expect(findBatteryJoltage('3223326722342332922443212222722732121123323322242722223233311322313131312323221226232242732333332333'.split(''), 12)).toBeDefined();
 // });
+
+test('placeholder test', () => {
+  expect(true).toBe(true);
+});
