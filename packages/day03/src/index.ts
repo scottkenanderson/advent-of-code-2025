@@ -35,7 +35,7 @@ export const findBatteryJoltage = (idString: string[], countBatteries = 12): num
 
 const joltagesPartA: number[] = [];
 const joltagesPartB: number[] = [];
-lists.forEach((line, i) => {
+lists.forEach((line) => {
   joltagesPartA.push(findBatteryJoltage(line.split(''), 2));
   joltagesPartB.push(findBatteryJoltage(line.split('')), 12);
 });

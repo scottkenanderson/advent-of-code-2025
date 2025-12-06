@@ -1,10 +1,11 @@
-export const rangeFromString = (s: string) : Range => {
+export const rangeFromString = (s: string): Range => {
   const [start, end] = s.split('-');
-  return new Range(start, end)
-}
+  return new Range(start, end);
+};
 
 export class Range {
   start: number = 0;
+
   end: number = 0;
 
   constructor(start: string | number, end: string | number) {
@@ -17,15 +18,15 @@ export class Range {
   }
 
   enumerate(): number[] {
-    const range: number[] = []
-    for (let i = this.start; i<=this.end; i++) {
+    const range: number[] = [];
+    for (let i = this.start; i <= this.end; i++) {
       range.push(i);
     }
-    return range
+    return range;
   }
 
   merge(r: Range): Range {
-    return new Range(Math.min(r.start, this.start), Math.max(r.end, this.end))
+    return new Range(Math.min(r.start, this.start), Math.max(r.end, this.end));
   }
 
   isInside(r: Range): boolean {
@@ -33,7 +34,7 @@ export class Range {
   }
 
   overlaps(r: Range): boolean {
-    return (this.start >= r.start && this.start <= r.end) || (r.start >= this.start && r.start <= this.end)
+    return this.start >= r.start && this.start <= r.end || r.start >= this.start && r.start <= this.end;
   }
 
   length(): number {
