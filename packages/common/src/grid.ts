@@ -7,7 +7,7 @@ export class Grid<T> {
   separator: string;
 
   constructor(initialData: T[][], separator = '\t') {
-    this.data = initialData;
+    this.data = structuredClone(initialData);
     this.separator = separator;
   }
 
@@ -32,6 +32,20 @@ export class Grid<T> {
 
   set(p: Point, value: T) {
     this.data[p.y][p.x] = value;
+  }
+
+  getNeighbours(p: Point): T[] {
+    const neighbours : T[] = [];
+    for(let y = p.y - 1; y <= p.y + 1; y++) {
+      for(let x = p.x - 1; x <= p.x + 1; x++) {
+        if ((p.x === x && p.y === y) || (x < 0 || y < 0) || (x >= this.columns() || y >= this.rows())) {
+          continue;
+        }
+        neighbours.push(this.retrieve(new Point(x, y)))
+      }
+    }
+
+    return neighbours;
   }
 
   withinBounds(p: Point): boolean {
@@ -92,7 +106,7 @@ export class Point {
     return new Point(this.x + xOffset, this.y + yOffset);
   }
 
-  neighbours(manhattanDistance: number): Point[] {
+  manhattanNeighbours(manhattanDistance: number): Point[] {
     const top = new Point(this.x, this.y + manhattanDistance);
     const right = new Point(this.x + manhattanDistance, this.y);
     const bottom = new Point(this.x, this.y - manhattanDistance);

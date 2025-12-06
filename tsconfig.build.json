@@ -6,6 +6,21 @@
     },
     {
       "path": "packages/day01"
+    },
+    {
+      "path": "packages/day02"
+    },
+    {
+      "path": "packages/day03"
+    },
+    {
+      "path": "packages/day04"
+    },
+    {
+      "path": "packages/day05"
+    },
+    {
+      "path": "packages/day06"
     }
   ]
 }

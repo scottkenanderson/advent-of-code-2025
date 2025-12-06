@@ -1,0 +1,14 @@
+{
+  "name": "@aoc/day05",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

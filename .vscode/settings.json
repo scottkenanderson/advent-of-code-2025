@@ -1,0 +1,7 @@
+{
+  "eslint.lintTask.enable": true,
+  "eslint.workingDirectories": [],
+  "[plaintext]": {
+    "files.trimTrailingWhitespace": false
+  }
+}

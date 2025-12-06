@@ -1,0 +1,12 @@
+{
+  "name": "@aoc/day02",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
