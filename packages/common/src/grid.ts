@@ -35,13 +35,13 @@ export class Grid<T> {
   }
 
   getNeighbours(p: Point): T[] {
-    const neighbours : T[] = [];
-    for(let y = p.y - 1; y <= p.y + 1; y++) {
-      for(let x = p.x - 1; x <= p.x + 1; x++) {
-        if ((p.x === x && p.y === y) || (x < 0 || y < 0) || (x >= this.columns() || y >= this.rows())) {
+    const neighbours: T[] = [];
+    for (let y = p.y - 1; y <= p.y + 1; y++) {
+      for (let x = p.x - 1; x <= p.x + 1; x++) {
+        if (p.x === x && p.y === y || (x < 0 || y < 0) || (x >= this.columns() || y >= this.rows())) {
           continue;
         }
-        neighbours.push(this.retrieve(new Point(x, y)))
+        neighbours.push(this.retrieve(new Point(x, y)));
       }
     }
 

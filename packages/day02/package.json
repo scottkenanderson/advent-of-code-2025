@@ -4,7 +4,10 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "node dist/index.js",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "test:watch": "jest --watch"
   },
   "author": "",
   "license": "ISC",

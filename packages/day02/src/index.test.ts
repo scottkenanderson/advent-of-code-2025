@@ -1,4 +1,4 @@
-import { validateIdPartA } from '.'
+import { validateIdPartA } from '.';
 
 test('validateId', () => {
   expect(validateIdPartA(123)).toBeTruthy();

@@ -8,37 +8,34 @@ const filename = process.env.FILENAME as string;
 
 const lists = readFile(filename);
 
-const partA = 0;
-const partB = 0;
-
-export const validateIdPartA = (id: number) : boolean => {
+export const validateIdPartA = (id: number): boolean => {
   const idString = id.toString().split('');
-  return idString.slice(0, idString.length/2).join('') !== idString.slice(idString.length/2, idString.length).join('')
-}
+  return idString.slice(0, idString.length / 2).join('') !== idString.slice(idString.length / 2, idString.length).join('');
+};
 
 
-export const validateIdPartB = (id: number) : boolean => {
+export const validateIdPartB = (id: number): boolean => {
   const idString = id.toString().split('');
-  const permutations = []
-  for (let i = 1; i <= idString.length-1; i++) {
+  const permutations = [];
+  for (let i = 1; i <= idString.length - 1; i++) {
     if (idString.length % i > 0) {
       continue;
     }
     const a = [];
-    for (let j = 0; j < idString.length; j+=i ) {
-      a.push(idString.slice(j, j+i).join(''));
+    for (let j = 0; j < idString.length; j += i) {
+      a.push(idString.slice(j, j + i).join(''));
     }
     permutations.push(a);
   }
   // console.log(permutations)
-  return !permutations.some(x => {
+  return !permutations.some((x) => {
     // console.log(x, x[0] === x[1])
     return new Set(x).size === 1;
   });
-}
+};
 
-const invalidIdsPartA : number[] = [];
-const invalidIdsPartB : number[] = [];
+const invalidIdsPartA: number[] = [];
+const invalidIdsPartB: number[] = [];
 lists[0].split(',').forEach((line) => {
   // console.log(line.split('-'));
   const [start, end] = line.split('-');
