@@ -43,7 +43,7 @@ describe('grid.ts', () => {
       const grid = new Grid([[1, 2], [3, 4]]);
       // Top-left corner (0,0) - has neighbors at (1,0), (0,1), (1,1)
       const topLeftNeighbours = grid.getNeighbours(new Point(0, 0));
-      expect(topLeftNeighbours).toEqual([2, 4, 3]);
+      expect(topLeftNeighbours).toEqual([2, 3, 4]);
       // Bottom-right corner (1,1) - has neighbors at (0,1), (1,0), (0,0)
       const bottomRightNeighbours = grid.getNeighbours(new Point(1, 1));
       expect(bottomRightNeighbours).toEqual([3, 2, 1]);
