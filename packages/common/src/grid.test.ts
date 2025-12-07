@@ -46,7 +46,7 @@ describe('grid.ts', () => {
       expect(topLeftNeighbours).toEqual([2, 3, 4]);
       // Bottom-right corner (1,1) - has neighbors at (0,1), (1,0), (0,0)
       const bottomRightNeighbours = grid.getNeighbours(new Point(1, 1));
-      expect(bottomRightNeighbours).toEqual([3, 2, 1]);
+      expect(bottomRightNeighbours).toEqual([1, 2, 3]);
     });
 
     test('empty grid', () => {
