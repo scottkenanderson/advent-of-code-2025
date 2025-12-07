@@ -1,10 +1,10 @@
-# Scott's Advent of Code 2025 🎄
+# Advent of Code 2025 🎄
 
-Welcome to Scott's personal Advent of Code 2025 repository! 🎅✨ This is where the magic happens as Scott tackles the daily coding challenges of December. It's all set up to make the journey smooth and enjoyable, so grab a cuppa and let's dive in.
+Welcome to my personal Advent of Code 2025 repository! 🎅✨ This is where the magic happens as I tackle the daily coding challenges of December. It's all set up to make the journey smooth and enjoyable, so grab a cuppa and let's dive in.
 
 ## Project Structure
 
-Here's how Scott has organised the project:
+Here's how I've organised the project:
 
 - **`packages/`**: Each day's solution lives here in its own folder (e.g., `day01`, `day02`, etc.). There's also a `common` package for shared utilities.
 - **`scripts/`**: Handy scripts to automate tasks, including the magical `new-day.cjs`.
@@ -58,7 +58,7 @@ This ensures that you're using the Node.js version specified for the project, wh
 
 ## Adding a New Day
 
-When a new challenge drops, Scott can run:
+When a new challenge drops, I can run:
 ```bash
 npm run new-day
 ```
@@ -78,3 +78,7 @@ All that's left is to fill in the blanks and start coding! 🎅
 
 - **Module Not Found**: If errors about missing modules appear, ensure `npm run build` has been run.
 - **Tests Failing**: Placeholder tests are included to keep Jest happy. Replace them with real tests as challenges are solved.
+
+## Have Fun! 🎁
+
+Remember, Advent of Code is all about learning and having fun. Don't stress too much about perfection—just enjoy the journey. Happy coding! 🎄
