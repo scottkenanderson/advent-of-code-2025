@@ -1,12 +1,11 @@
 import fs from 'fs';
 
-import { readFile, sum, product, Grid, Point } from '@aoc/common';
+import { Grid, Point } from '@aoc/common';
 import {
   countBeamSplits,
+  countTimelines,
   findStart,
   parseInput,
-  part1,
-  part2,
 } from './index';
 
 describe('day06', () => {
@@ -21,10 +20,10 @@ describe('day06', () => {
         '.^.^.',
       ].join('\n'));
       const result = parseInput(filename);
-      console.log(result)
+      console.log(result);
       expect(result).not.toBeNull();
-      expect(result.data.length).toBe(5)
-      expect(result.columns()).toBe(5)
+      expect(result.data.length).toBe(5);
+      expect(result.columns()).toBe(5);
       fs.unlinkSync(filename);
     });
   });
@@ -38,7 +37,7 @@ describe('day06', () => {
         '.....',
         '.^.^.',
       ].map((line) => line.split(''));
-      const grid = new Grid<string>( gridData, '');
+      const grid = new Grid<string>(gridData, '');
       const result = findStart(grid);
       expect(result).toEqual(new Point(2, 0));
     });
@@ -54,8 +53,8 @@ describe('day06', () => {
         '.^.^.',
         '.....',
       ].map((line) => line.split(''));
-      const grid = new Grid<string>( gridData, '');
-      ;
+      const grid = new Grid<string>(gridData, '');
+
       expect(countBeamSplits(grid, new Point(2, 0))).toEqual(3);
     });
 
@@ -66,8 +65,8 @@ describe('day06', () => {
         '..^..',
         '.....',
       ].map((line) => line.split(''));
-      const grid = new Grid<string>( gridData, '');
-      ;
+      const grid = new Grid<string>(gridData, '');
+
       expect(countBeamSplits(grid, new Point(2, 0))).toEqual(1);
     });
 
@@ -90,8 +89,8 @@ describe('day06', () => {
         '.^.^.^.^.^...^.',
         '...............',
       ].map((line) => line.split(''));
-      const grid = new Grid<string>( gridData, '');
-      ;
+      const grid = new Grid<string>(gridData, '');
+
       expect(countBeamSplits(grid, new Point(7, 0))).toEqual(21);
     });
 
@@ -108,9 +107,61 @@ describe('day06', () => {
         '....^.^...^....',
         '...............',
       ].map((line) => line.split(''));
-      const grid = new Grid<string>( gridData, '');
-      ;
+      const grid = new Grid<string>(gridData, '');
+
       expect(countBeamSplits(grid, new Point(7, 0))).toEqual(9);
+    });
+  });
+
+  describe('countTimelines', () => {
+    test('counts the number of times the beam splits', () => {
+      const gridData = [
+        '..S..',
+        '.....',
+        '..^..',
+        '.....',
+        '.^.^.',
+        '.....',
+      ].map((line) => line.split(''));
+      const grid = new Grid<string>(gridData, '');
+
+      expect(countTimelines(grid, new Point(2, 0))).toEqual(4);
+    });
+
+    test('counts the number of times the beam splits', () => {
+      const gridData = [
+        '..S..',
+        '.....',
+        '..^..',
+        '.....',
+      ].map((line) => line.split(''));
+      const grid = new Grid<string>(gridData, '');
+
+      expect(countTimelines(grid, new Point(2, 0))).toEqual(2);
+    });
+
+    test('counts the number of times the beam splits', () => {
+      const gridData = [
+        '.......S.......',
+        '...............',
+        '.......^.......',
+        '...............',
+        '......^.^......',
+        '...............',
+        '.....^.^.^.....',
+        '...............',
+        '....^.^...^....',
+        '...............',
+        '...^.^...^.^...',
+        '...............',
+        '..^...^.....^..',
+        '...............',
+        '.^.^.^.^.^...^.',
+        '...............',
+      ].map((line) => line.split(''));
+      const grid = new Grid<string>(gridData, '');
+
+      expect(countTimelines(grid, new Point(7, 0))).toEqual(40);
     });
   });
 });
