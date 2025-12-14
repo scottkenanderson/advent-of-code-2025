@@ -2,12 +2,54 @@
 
 const fs = require("fs");
 const path = require("path");
+const { execSync } = require("child_process");
 
 const rootDir = process.cwd();
 const srcDir = path.join(rootDir, "packages");
 
 function padDay(n) {
   return String(n).padStart(2, "0");
+}
+function run(cmd, opts = {}) {
+  return execSync(cmd, { stdio: "inherit", cwd: rootDir, ...opts });
+}
+
+function runCapture(cmd) {
+  return execSync(cmd, { stdio: ["ignore", "pipe", "pipe"], cwd: rootDir })
+    .toString("utf8")
+    .trim();
+}
+
+function ensureGitClean() {
+  const status = runCapture("git status --porcelain");
+  if (status.length > 0) {
+    console.error("❌ Working tree is not clean. Commit/stash your changes before running 'new day'.");
+    process.exit(1);
+  }
+}
+
+function gitPrepareBranch(nextDayNumber) {
+  const branchName = `day-${padDay(nextDayNumber)}`;
+
+  // Verify we're in a git repo
+  try {
+    runCapture("git rev-parse --is-inside-work-tree");
+  } catch {
+    console.error("❌ Not a git repository (or git not available).");
+    process.exit(1);
+  }
+
+  ensureGitClean();
+
+  console.log(`🔀 Switching to main and pulling latest...`);
+  run("git checkout main");
+  run("git pull");
+
+  // Create branch (fail if it already exists)
+  console.log(`🌿 Creating branch ${branchName}...`);
+  run(`git checkout -b ${branchName}`);
+
+  return branchName;
 }
 
 function findLastDayNumber() {
@@ -125,6 +167,8 @@ function main() {
 
   const lastName = `day${padDay(last)}`;
   const nextName = `day${padDay(next)}`;
+
+  gitPrepareBranch(next);
 
   const lastDir = path.join(srcDir, lastName);
   const nextDir = path.join(srcDir, nextName);
