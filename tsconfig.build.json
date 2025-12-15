@@ -24,6 +24,9 @@
     },
     {
       "path": "packages/day07"
+    },
+    {
+      "path": "packages/day08"
     }
   ]
 }
