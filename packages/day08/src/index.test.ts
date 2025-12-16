@@ -18,8 +18,8 @@ describe('day08', () => {
 
       expect(result).not.toBeNull();
       expect(result.length).toBe(1);
-      // expect(result[0]).toEqual({x: 162, y: 817, z: 812});
-      expect(result[0]).toEqual('162,817,812');
+      expect(result[0]).toEqual({ x: 162, y: 817, z: 812 });
+      // expect(result[0]).toEqual('162,817,812');
       fs.unlinkSync(filename);
     });
   });
@@ -47,7 +47,7 @@ describe('day08', () => {
         { x: 3, y: 1, z: 1 },
       ].map(({ x, y, z }) => `${x},${y},${z}`);
 
-      expect(part1([input])).toBe(1);
+      expect(part1([input])).toBe(6);
     });
   });
 });
