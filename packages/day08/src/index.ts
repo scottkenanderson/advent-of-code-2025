@@ -40,7 +40,7 @@ export interface Distance {
   distance: number;
 }
 
-export const part1 = (junctionBoxes: string[], limit: number = 10): number => {
+const getCircuits = (junctionBoxes: string[], limit: number): string[][] => {
   const distances: {[index: string]: number} = {};
   junctionBoxes.forEach((first) => {
     junctionBoxes.forEach((second) => {
@@ -88,8 +88,11 @@ export const part1 = (junctionBoxes: string[], limit: number = 10): number => {
       circuits.push(circuit)
     }
   })
+  return circuits;
+}
 
-  return circuits.sort((a, b) => b.length - a.length).slice(0, 3).map((x) => x.length).reduce(product)
+export const part1 = (circuits: string[][]): number => {
+  return circuits.toSorted((a, b) => b.length - a.length).slice(0, 3).map((x) => x.length).reduce(product)
 };
 
 export const findStartPoint = (junctionBoxes: string[]): string => {
@@ -109,6 +112,8 @@ export const findNearestNeighbour = (junctionBox: string, junctionBoxes: string[
 }
 
 export const part2 = (junctionBoxes: string[]): number => {
+  // const junctionBoxes = Array.from(new Set(circuits.flat()));
+  console.log(junctionBoxes)
   const start = findStartPoint(junctionBoxes)
   let node = start;
   const visited = new Set<string>();
@@ -119,10 +124,14 @@ export const part2 = (junctionBoxes: string[]): number => {
     visited.add(node);
     path.push(node);
   }
-  return to3dPoint(path.pop() as string).x * to3dPoint(path.pop() as string).x
+  console.log(path)
+  return to3dPoint(path.shift() as string).x * to3dPoint(path.pop() as string ).x
 };
 
 if (filename) {
-  console.log('Part 1:', part1(parseInputPart1(filename)));
-  console.log('Part 2:', part2(parseInputPart1(filename)));
+  const junctionBoxes = parseInputPart1(filename)
+  const circuits = getCircuits(junctionBoxes, 1000)
+  console.log(circuits)
+  console.log('Part 1:', part1([...circuits]));
+  console.log('Part 2:', part2(junctionBoxes));
 }
