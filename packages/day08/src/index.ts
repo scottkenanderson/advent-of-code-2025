@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 
-import { readFile, sum, Grid, Point, product } from '@aoc/common';
+import { readFile, product } from '@aoc/common';
 
 dotenv.config();
 
@@ -59,6 +59,7 @@ const getClosestJunctionBoxes = (junctionBoxes: string[]): (string | number)[][]
 const getCircuits = (closestJunctionBoxes: (string | number)[][]): string[][] => {
   const graph: { [index: string]: string[] } = {};
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   closestJunctionBoxes.forEach(([route, _]) => {
     const [first, second] = (route as string).split('-');
     if (!Object.prototype.hasOwnProperty.call(graph, first)) {
