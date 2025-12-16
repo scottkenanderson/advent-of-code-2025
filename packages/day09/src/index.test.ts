@@ -12,6 +12,7 @@ describe('day09', () => {
       const filename = 'test-input.txt';
       fs.writeFileSync(filename, [
         '1,2',
+        ''
       ].join('\n'));
       const result = parseInput(filename);
 

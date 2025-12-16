@@ -77,6 +77,10 @@ export class Point {
     return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
   }
 
+  public static area(p1: Point, p2: Point): number {
+    return (Math.abs(p1.x - p2.x) + 1) * (Math.abs(p1.y - p2.y) + 1);
+  }
+
   public static xyDistance(p1: Point, p2: Point): Point {
     return new Point(p1.x - p2.x, p1.y - p2.y);
   }
